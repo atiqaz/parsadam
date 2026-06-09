@@ -5,7 +5,8 @@ import Razorpay from "razorpay";
 import { createOrder } from "./PhonePay.js";
 import router from "./routes.js";
 import pkg from "@phonepe-pg/pg-sdk-node/package.json" with { type: "json" };
-
+import { createRequire } from "module";
+const require = createRequire(import.meta.url);
 
 dotenv.config();
 
@@ -40,6 +41,18 @@ app.get("/debug", async (req, res) => {
     node: process.version,
     phonepe: pkg.version,
     classTransformerKeys: Object.keys(ct),
+  });
+});
+
+
+app.get("/debug-full", (req, res) => {
+  const ct = require("class-transformer");
+
+  res.json({
+    resolved: require.resolve("class-transformer"),
+    version: require("class-transformer/package.json").version,
+    keys: Object.keys(ct),
+    plainToClass: typeof ct.plainToClass,
   });
 });
 
