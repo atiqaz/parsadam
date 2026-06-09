@@ -10,7 +10,7 @@ import { randomUUID } from "crypto";
 const clientId = process.env.PHONEPAY_CLIENTID;
 const clientSecret = process.env.PHONEPAY_SECRETID;
 const clientVersion = 1;
-const env = Env.SANDBOX;
+const env = Env.PRODUCTION;
 
 const client = StandardCheckoutClient.getInstance(clientId, clientSecret, clientVersion, env);
 
