@@ -16,8 +16,9 @@ const client = StandardCheckoutClient.getInstance(clientId, clientSecret, client
 export async function createOrder(req, res) {
   try {
     const merchantOrderId = randomUUID();
-    const amount = req.body.amount || 1000;
-    const redirectUrl = "http://localhost:5173";
+    const { amount = 1000, name: userNaam, mobile: userMobile, notes: userNotes } = req.body;
+    const baseUrl = "https://parsadamseva.com";
+    const redirectUrl = `${baseUrl}?name=${encodeURIComponent(userNaam || "")}&mobile=${encodeURIComponent(userMobile || "")}&notes=${encodeURIComponent(userNotes || "")}&orderId=${merchantOrderId}`;
 
     const request = StandardCheckoutPayRequest.builder()
       .merchantOrderId(merchantOrderId)
@@ -31,7 +32,7 @@ export async function createOrder(req, res) {
       statusCode: 200,
       success: true,
       message: "Order created successfully",
-      data: { merchantOrderId, redirectUrl: response.redirectUrl },
+      data: { merchantOrderId, redirectUrl: response.redirectUrl, userNaam, userMobile, userNotes },
     });
   } catch (error) {
     console.error("Order Creation Failed:", error);
