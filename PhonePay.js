@@ -1,7 +1,8 @@
 import {
   StandardCheckoutClient,
   Env,
-  StandardCheckoutPayRequest
+  StandardCheckoutPayRequest,
+  MetaInfo
 } from "@phonepe-pg/pg-sdk-node";
 
 import { randomUUID } from "crypto";
@@ -20,10 +21,17 @@ export async function createOrder(req, res) {
     const baseUrl = "https://parsadamseva.com";
     const redirectUrl = `${baseUrl}?name=${encodeURIComponent(userNaam || "")}&mobile=${encodeURIComponent(userMobile || "")}&notes=${encodeURIComponent(userNotes || "")}&orderId=${merchantOrderId}`;
 
+    const metaInfo = MetaInfo.builder()
+      .udf1(userNaam || "")
+      .udf2(userMobile || "")
+      .udf3(userNotes || "")
+      .build();
+
     const request = StandardCheckoutPayRequest.builder()
       .merchantOrderId(merchantOrderId)
       .amount(amount)
       .redirectUrl(redirectUrl)
+      .metaInfo(metaInfo)
       .build();
 
     const response = await client.pay(request);
