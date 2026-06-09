@@ -6,8 +6,8 @@ import {
 
 import { randomUUID } from "crypto";
 
-const clientId = "M22YSJWZVELLS_2606091006";
-const clientSecret = "MDAwYmExYTItODcxMS00ZjJjLWI3NzItOTNkZjAyZjI5NjU1";
+const clientId = process.env.PHONEPAY_CLIENTID;
+const clientSecret = process.env.PHONEPAY_SECRETID;
 const clientVersion = 1;
 const env = Env.SANDBOX;
 

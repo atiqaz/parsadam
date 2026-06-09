@@ -17,7 +17,7 @@ const PORT = 5000;
 app.use(cors({
   origin: [
     "http://localhost:5173",
-    "https://yourfrontenddomain.com"
+    "https://parsadamseva.com"
   ],
   credentials: true,
 }));
