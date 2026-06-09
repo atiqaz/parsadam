@@ -9,6 +9,9 @@
     "start": "node index.js",
     "dev": "node --watch index.js"
   },
+  "engines": {
+    "node": "22.18.0"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
