@@ -15,7 +15,7 @@ app.use(cors({
   methods: ["GET", "POST", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
 }));
-app.options("*", cors());
+app.options("/{*path}", cors());
 app.use(express.json());
 
 const razorpay = new Razorpay({
