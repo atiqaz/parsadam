@@ -10,12 +10,17 @@ dotenv.config();
 const app = express();
 const PORT = 5000;
 
+
 app.use(cors({
-  origin: "*",
-  methods: ["GET", "POST", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization"],
+  origin: [
+    "http://localhost:5173",
+    "https://yourfrontenddomain.com"
+  ],
+  credentials: true,
 }));
-app.options("/{*path}", cors());
+
+app.options("*", cors());
+
 app.use(express.json());
 
 const razorpay = new Razorpay({
