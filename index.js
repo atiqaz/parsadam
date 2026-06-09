@@ -4,6 +4,8 @@ import dotenv from "dotenv";
 import Razorpay from "razorpay";
 import { createOrder } from "./PhonePay.js";
 import router from "./routes.js";
+import pkg from "@phonepe-pg/pg-sdk-node/package.json" with { type: "json" };
+
 
 dotenv.config();
 
@@ -30,6 +32,15 @@ const razorpay = new Razorpay({
 
 app.get("/", (req, res) => {
   res.send("Hello World!");
+});
+app.get("/debug", async (req, res) => {
+  const ct = await import("class-transformer");
+
+  res.json({
+    node: process.version,
+    phonepe: pkg.version,
+    classTransformerKeys: Object.keys(ct),
+  });
 });
 
 app.use('/phonepay',router)
